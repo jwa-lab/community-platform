@@ -1,9 +1,22 @@
 # Community Platform
 
-Playground for building advanced gaming concepts on top of the blockchain
+Run a simplified JWA platform on your local machine:
 
-* Learn about existing usages of the blockchain in the gaming industry
-* Play with proven blockchain services and see and how they can empower your video games and lifestyle applications
-* Discover new blockchain usages and share them with the community
-* Build your new applications on top of the blockchain
-* Discuss blockchain with the community
+1. Learn about the platform and see what it can do
+1. Integrate your applications and games with the platform
+1. Discover new usages and share them with the community
+
+## Stack:
+
+The community platform starts the core JWA Platform services:
+
+1. The NATS.io message bus
+1. The gRPC ingress service (airlock)
+
+It then optionally starts additional services:
+
+1. JWA Token service
+
+Or your own custom services. 
+
+The JWA Platform may integrate with a preferred blockchain or start a sandbox.
