@@ -6,7 +6,7 @@ Run a simplified JWA platform on your local machine:
 1. Integrate your applications and games with the platform
 1. Discover new usages and share them with the community
 
-## Stack:
+## Stack
 
 The community platform starts the core JWA Platform services:
 
@@ -20,3 +20,11 @@ It then optionally starts additional services:
 Or your own custom services. 
 
 The JWA Platform may integrate with a preferred blockchain or start a sandbox.
+
+## Getting started
+
+To get started, all you need is a recent version of Docker, including Docker compose
+
+```
+./run start
+```
