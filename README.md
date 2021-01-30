@@ -12,19 +12,27 @@ The community platform starts the core JWA Platform services:
 
 1. The NATS.io message bus
 1. The gRPC ingress service (airlock)
+1. A Tezos sandbox
+1. Observability tools
 
 It then optionally starts additional services:
 
-1. JWA Token service
+1. JWA Tokenization service
+1. Or run your own services on top of it 
 
-Or your own custom services. 
-
-The JWA Platform may integrate with a preferred blockchain or start a sandbox.
 
 ## Getting started
 
-To get started, all you need is a recent version of Docker, including Docker compose
+To get started, all you need is a recent version of Docker, including Docker compose.
 
 ```
-./run start
+npm install -g @jwalab/community-platform
+
+jwalab --help
+```
+
+Start the platform:
+
+```
+jwalab start
 ```

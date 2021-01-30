@@ -1,0 +1,43 @@
+{
+  "name": "@jwalab/community-platform",
+  "version": "0.0.1",
+  "description": "JWA Lab's community platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "jwalab": "index.js"
+  },
+  "files": [
+    "src",
+    "index.js",
+    "docker-compose.yaml"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwa-lab/community-platform.git"
+  },
+  "keywords": [
+    "JWA",
+    "Lab",
+    "Platform",
+    "Tezos",
+    "NATS"
+  ],
+  "author": {
+    "name": "JWA Lab"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jwa-lab/community-platform/issues"
+  },
+  "homepage": "https://github.com/jwa-lab/community-platform#readme",
+  "dependencies": {
+    "@jwalab/minilab": "^0.0.3",
+    "chalk": "^4.1.0",
+    "clear": "^0.1.0",
+    "commander": "^7.0.0",
+    "docker-compose": "^0.23.6"
+  }
+}
