@@ -51,3 +51,13 @@ services:
         restart: always
         depends_on:
             - tzindex
+    tokenization-service:
+        image: jwalab/tokenization-service
+        environment: 
+            - TEZOS_RPC_URI=http://carthagebox:20000
+            - WAREHOUSE_TEZOS_SECRET_KEY=edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq
+            - NATS_URL=nats://nats:4222
+            - WAREHOUSE_CONTRACT_ADDRESS=${WAREHOUSE_CONTRACT_ADDRESS}
+        depends_on: 
+            - nats
+

@@ -36,3 +36,13 @@ Start the platform:
 ```
 jwalab start
 ```
+
+## Update the contracts
+
+For now, the contracts are copy/pasted from their initial repositories.
+To udpate them, simply copy/paste the following:
+
+- LIGO contracts in ./contracts
+- Migration scripts in ./migrations
+
+When the platform starts, it runs a truffle migration on them automatically

@@ -5,10 +5,13 @@ const clear = require('clear');
 const compose = require('docker-compose');
 const path = require('path');
 const chalk = require('chalk');
+const npm = require('npm');
 
 const package = require('./package.json');
 
 const { tezosClient, runBox } = require('./src/execs');
+const { getContractKT1, deployContract } = require('./src/warehouse');
+const { POINT_CONVERSION_COMPRESSED } = require('constants');
 
 clear();
 
@@ -27,13 +30,32 @@ Run a JWA Community platform (jwalab) on your local machine!
 program
     .command('start')
     .description('start the jwalab environment')
-    .action(() => {
-        compose.upAll({ cwd: path.join(__dirname), log: true })
-            .then(() => tezosClient(BOX_NAME, 'rpc get /chains/main/chain_id'))
-            .then(
-                (res) => { console.log(`jwalab started, Tezos Network Id is ${ res.out }`) },
-                err => { console.log('something went wrong:', err.message)}
-            );
+    .action(async () => {
+        try {
+            await compose.upMany([
+                'carthagebox',
+                'nats',
+                'airlock',
+                'tzindex',
+                'tzstats'
+            ], { cwd: path.join(__dirname), log: true });
+
+            const networkId = stripQuotes(await tezosClient(BOX_NAME, 'rpc get /chains/main/chain_id'));
+            console.log(`jwalab started, Tezos Network Id is ${ networkId }`)
+
+            await deployContract()
+
+            const warehouseKT1 = getContractKT1(networkId);
+
+            console.log(`Contract Warehouse deployed here: ${ warehouseKT1 }`);
+
+            process.env.WAREHOUSE_CONTRACT_ADDRESS='KT1AaNnfUepNTfGPjUq9HDHFf128s5zdTnd2';
+
+            await compose.upOne('tokenization-service');
+            
+        } catch (err) {
+            console.error('something went wrong:', err)
+        }
     });
 
 program
@@ -87,3 +109,7 @@ program
 `);
 
 program.parse(process.argv);
+
+function stripQuotes(string) {
+    return string.slice(1, -2);
+}
