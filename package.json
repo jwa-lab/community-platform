@@ -1,10 +1,11 @@
 {
   "name": "@jwalab/community-platform",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "JWA Lab's community platform",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "truffle migrate --force"
   },
   "bin": {
     "jwalab": "index.js"
@@ -35,9 +36,12 @@
   "homepage": "https://github.com/jwa-lab/community-platform#readme",
   "dependencies": {
     "@jwalab/minilab": "^0.0.3",
+    "@taquito/taquito": "^7.1.0-beta.0",
     "chalk": "^4.1.0",
     "clear": "^0.1.0",
     "commander": "^7.0.0",
-    "docker-compose": "^0.23.6"
+    "docker-compose": "^0.23.6",
+    "npm": "^6.14.11",
+    "truffle": "^5.5.0-tezos.4"
   }
 }
