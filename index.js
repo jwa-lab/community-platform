@@ -62,7 +62,11 @@ program
     .command('stop')
     .description('stop the jwalab environment')
     .action(() => {
-        compose.down({ cwd: path.join(__dirname), log: true })
+        compose.down({ 
+            cwd: path.join(__dirname),
+            log: true,
+            commandOptions: ['--remove-orphans']
+        })
             .then(
                 () => { console.log('jwalab stopped')},
                 err => { console.log('something went wrong:', err.message)}
@@ -73,7 +77,11 @@ program
     .command('kill')
     .description('kill the jwalab environment')
     .action(() => {
-        compose.kill({ cwd: path.join(__dirname), log: true })
+        compose.kill({ 
+            cwd: path.join(__dirname),
+            log: true,
+            commandOptions: ['--remove-orphans']
+        })
             .then(
                 () => { console.log('jwalab killed')},
                 err => { console.log('something went wrong:', err.message)}
