@@ -15,9 +15,10 @@ The community platform starts the core JWA Platform services:
 1. A Tezos sandbox
 1. Observability tools
 
-It then optionally starts additional services:
+It then starts additional services:
 
 1. JWA Tokenization service
+1. JWA Item store
 1. Or run your own services on top of it 
 
 

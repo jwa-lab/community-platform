@@ -29,9 +29,12 @@ program
     .action(async () => {
         try {
             await compose.upMany([
-                'carthagebox',
-                'nats',
                 'airlock',
+                'carthagebox',
+                'elasticsearch',
+                'item-store',
+                'kibana',
+                'nats',
                 'tzindex',
                 'tzstats'
             ], { cwd: path.join(__dirname), log: true });
