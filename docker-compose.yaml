@@ -60,4 +60,23 @@ services:
             - WAREHOUSE_CONTRACT_ADDRESS=${WAREHOUSE_CONTRACT_ADDRESS}
         depends_on: 
             - nats
+    item-store:
+        image: jwalab/item-store
+        environment:
+            - NATS_URL=nats://nats:4222
+            - ELASTICSEARCH_URI=http://elasticsearch:9200
+            - ELASTICSEARCH_INDEX_NAME=jwa_item_store
+        depends_on: 
+            - elasticsearch
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+        environment:
+            - discovery.type=single-node
+        ports:
+            - 9200:9200
+            - 9300:9300
+    kibana:
+        image: docker.elastic.co/kibana/kibana:7.9.2
+        ports:
+            - "5601:5601"
 
