@@ -5,7 +5,6 @@ const clear = require('clear');
 const compose = require('docker-compose');
 const path = require('path');
 const chalk = require('chalk');
-const { spawn } = require('child_process');
 
 const package = require('./package.json');
 
@@ -28,30 +27,7 @@ program
     .description('start the jwalab environment')
     .action(async () => {
         try {
-            await compose.upMany([
-                'airlock',
-                'carthagebox',
-                'elasticsearch',
-                'item-store',
-                'kibana',
-                'nats',
-                'tzindex',
-                'tzstats'
-            ], { cwd: path.join(__dirname), log: true });
-
-            const networkId = stripQuotes(await tezosClient(BOX_NAME, 'rpc get /chains/main/chain_id'));
-            console.log(`jwalab started, Tezos Network Id is ${ networkId }`)
-
-            await deployContract()
-
-            const warehouseKT1 = getContractKT1(networkId);
-
-            console.log(`Contract Warehouse deployed here: ${ warehouseKT1 }`);
-
-            process.env.WAREHOUSE_CONTRACT_ADDRESS=warehouseKT1;
-
-            await compose.upOne('tokenization-service', { cwd: path.join(__dirname), log: true });
-            
+            await compose.upAll({ cwd: path.join(__dirname), log: true });
         } catch (err) {
             console.error('something went wrong:', err)
         }
@@ -117,10 +93,6 @@ program
 
 program.parse(process.argv);
 
-function stripQuotes(string) {
-    return string.slice(1, -2);
-}
-
 async function tezosClient(boxName, command) {
     let res = await compose.exec(
         boxName,
@@ -145,40 +117,4 @@ function runBox(boxName, command) {
             cwd: path.join(__dirname)
         }
     );
-}
-
-function getContractKT1(networkId) {
-    let contract;
-
-    try {
-        contract = require('./build/contracts/Warehouse.json') ;
-    } catch (err) {
-        console.error('Unable to retrieve Warehouse.json contract. Make sure npx truffle migrate has been executed.')
-    }
-
-    return contract.networks[networkId].address;
-}
-
-function deployContract() {
-    return new Promise((resolve, reject) => {
-        const npx = spawn('npx', ['truffle', 'migrate', '--force'], { cwd: __dirname });
-        
-        npx.stdout.on('data', data => {
-            console.log(String(data));
-        });
-
-        npx.stderr.on('data', data => {
-            console.error(String(data));
-        });
-
-        npx.on('error', data => {
-            console.error(String(data));
-            reject();
-        });
-
-        npx.on('close', code => {
-            console.log(String(code));
-            resolve();
-        });
-    });
 }

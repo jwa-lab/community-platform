@@ -38,12 +38,10 @@ Start the platform:
 jwalab start
 ```
 
-## Update the contracts
+By default, the platform will automatically deploy a new Warehouse Smart Contract.
 
-For now, the contracts are copy/pasted from their initial repositories.
-To udpate them, simply copy/paste the following:
+To use an existing one, simply specify it as an environment variable:
 
-- LIGO contracts in ./contracts
-- Migration scripts in ./migrations
-
-When the platform starts, it runs a truffle migration on them automatically
+```
+export WAREHOUSE_CONTRACT_ADDRESS=<KT1 address>
+```

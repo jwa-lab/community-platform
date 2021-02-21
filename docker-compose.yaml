@@ -56,9 +56,12 @@ services:
         environment: 
             - TEZOS_RPC_URI=http://carthagebox:20000
             - WAREHOUSE_TEZOS_SECRET_KEY=edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq
-            - NATS_URL=nats://nats:4222
+            - WAREHOUSE_TEZOS_PUBLIC_KEY_HASH=tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
             - WAREHOUSE_CONTRACT_ADDRESS=${WAREHOUSE_CONTRACT_ADDRESS}
+            - NATS_URL=nats://nats:4222
+        restart: always
         depends_on: 
+            - carthagebox
             - nats
     item-store:
         image: jwalab/item-store
