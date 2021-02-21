@@ -1,22 +1,17 @@
 {
   "name": "@jwalab/community-platform",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "JWA Lab's community platform",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "truffle migrate --force"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
     "jwalab": "index.js"
   },
   "files": [
-    "contracts",
-    "migrations",
-    "scripts",
     "index.js",
-    "docker-compose.yaml",
-    "truffle-config.js"
+    "docker-compose.yaml"
   ],
   "repository": {
     "type": "git",
@@ -38,11 +33,9 @@
   },
   "homepage": "https://github.com/jwa-lab/community-platform#readme",
   "dependencies": {
-    "@taquito/taquito": "^7.1.0-beta.0",
     "chalk": "^4.1.0",
     "clear": "^0.1.0",
     "commander": "^7.0.0",
-    "docker-compose": "^0.23.6",
-    "truffle": "^5.5.0-tezos.4"
+    "docker-compose": "^0.23.6"
   }
 }
