@@ -11,7 +11,7 @@ Run a simplified JWA platform on your local machine:
 The community platform starts the core JWA Platform services:
 
 1. The NATS.io message bus
-1. The gRPC ingress service (airlock)
+1. The REST ingress service (airlock)
 1. A Tezos sandbox
 1. Observability tools
 
