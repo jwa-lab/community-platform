@@ -18,7 +18,8 @@ services:
     airlock:
         image: jwalab/airlock:latest
         ports:
-            - "50051:50051"
+            - "8000:8000"
+        restart: always
         environment:
             - NATS_URL=nats://nats:4222
         depends_on: 
@@ -69,8 +70,10 @@ services:
             - NATS_URL=nats://nats:4222
             - ELASTICSEARCH_URI=http://elasticsearch:9200
             - ELASTICSEARCH_INDEX_NAME=jwa_item_store
+        restart: always
         depends_on: 
             - elasticsearch
+            - nats
     elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
         environment:
