@@ -12,6 +12,7 @@ The community platform starts the core JWA Platform services:
 
 1. The NATS.io message bus
 1. The REST ingress service (airlock)
+1. A mock authorization service for airlock
 1. A Tezos sandbox
 1. Observability tools
 
