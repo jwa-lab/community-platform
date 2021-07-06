@@ -19,6 +19,8 @@ services:
         image: jwalab/authorization-service:latest
         ports:
             - "8999:8999"
+        environment:
+            - TOKEN_ISSUER=authorization-service
         restart: always
     airlock:
         image: jwalab/airlock:latest
