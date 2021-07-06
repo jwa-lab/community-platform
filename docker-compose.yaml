@@ -1,9 +1,9 @@
 version: "3.8"
 
 services:
-    carthagebox:
-        image: tqtezos/flextesa:20200925
-        command: ["carthagebox", "start"]
+    tzbox:
+        image: tqtezos/flextesa:20210602
+        command: ["flobox", "start"]
         ports:
             - "20000:20000"
         environment:
@@ -42,7 +42,7 @@ services:
         ports:
             - "8002:8002"
         environment:
-            - TZ_RPC_HOST=carthagebox
+            - TZ_RPC_HOST=tzbox
             - TZ_RPC_PORT=20000
             - TZ_SERVER_ADDR=0.0.0.0
             - TZ_SERVER_PORT=8002
@@ -51,7 +51,7 @@ services:
             - TZ_SNAPSHOT_PATH=/data/snapshots
         restart: always
         depends_on:
-            - carthagebox
+            - tzbox
     tzstats:
         image: blockwatch/tzstats
         ports:
@@ -66,14 +66,14 @@ services:
     tokenization-service:
         image: jwalab/tokenization-service
         environment: 
-            - TEZOS_RPC_URI=http://carthagebox:20000
+            - TEZOS_RPC_URI=http://tzbox:20000
             - WAREHOUSE_TEZOS_SECRET_KEY=edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq
             - WAREHOUSE_TEZOS_PUBLIC_KEY_HASH=tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
             - WAREHOUSE_CONTRACT_ADDRESS=${WAREHOUSE_CONTRACT_ADDRESS}
             - NATS_URL=nats://nats:4222
         restart: always
         depends_on: 
-            - carthagebox
+            - tzbox
             - nats
     item-store:
         image: jwalab/item-store
