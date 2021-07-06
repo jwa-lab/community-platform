@@ -46,3 +46,7 @@ To use an existing one, simply specify it as an environment variable:
 ```
 export WAREHOUSE_CONTRACT_ADDRESS=<KT1 address>
 ```
+
+## Tutorial
+
+An online tutorial is available here: https://jwa-lab.github.io/platform-docs/
