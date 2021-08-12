@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.19
+
+- Upgrade to Granada protocol
+
 ## 0.0.18
 
 - Upgrade airlock to 0.0.7

@@ -3,7 +3,7 @@ version: "3.8"
 services:
     tzbox:
         image: tqtezos/flextesa:20210602
-        command: ["flobox", "start"]
+        command: ["granabox", "start"]
         ports:
             - "20000:20000"
         environment:
