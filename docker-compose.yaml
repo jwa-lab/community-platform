@@ -24,7 +24,7 @@ services:
             - TOKEN_ISSUER=authorization-service
         restart: always
     airlock:
-        image: jwalab/airlock:0.0.7
+        image: jwalab/airlock:0.0.8
         ports:
             - "8000:8000"
         restart: always
