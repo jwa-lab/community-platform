@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.21
+
+- Upgrade authorization-service to 0.0.3
+
 ## 0.0.20
 
 - Upgrade airlock to 0.0.8
