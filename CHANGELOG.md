@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.22
+
+- Upgrade authorization-service to 0.0.4
+
 ## 0.0.21
 
 - Upgrade authorization-service to 0.0.3
