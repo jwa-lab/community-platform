@@ -11,7 +11,7 @@ services:
            - block_time=2
     nats:
         image: nats:latest
-        command: []
+        command: ["-js"]
         ports:
             - "4222:4222"
             - "6222:6222"
@@ -37,11 +37,12 @@ services:
             - nats
             - authorization-service
     tzindex:
-        image: blockwatch/tzindex
+        image: blockwatch/tzindex:v9.1-rc2
         # https://github.com/blockwatch-cc/tzindex/issues/13
         command: ["sh", "-c", "sleep 10 && tzindex run"]
         ports:
             - "8002:8002"
+        user: root
         environment:
             - TZ_RPC_HOST=tzbox
             - TZ_RPC_PORT=20000
@@ -64,39 +65,52 @@ services:
         restart: always
         depends_on:
             - tzindex
-    tokenization-service:
-        image: jwalab/tokenization-service:0.0.10
-        environment: 
+    postgres:
+        image: postgres
+        environment:
+            - POSTGRES_USER=jwa
+            - POSTGRES_PASSWORD=jwalab
+            - POSTGRES_DB=item
+        ports:
+            - "5432:5432"
+    item-service:
+        image: jwalab/item-service:0.0.1
+        entrypoint: [
+            "sh", "-c", 
+            "npm run seed-db && sleep 10 && export WAREHOUSE_CONTRACT_ADDRESS=$$(npm run deploy-warehouse --silent) && npm run start"
+        ]
+        environment:
+            - SERVICE_NAME=item-service
+            - NATS_URL=nats://nats:4222
             - TEZOS_RPC_URI=http://tzbox:20000
-            - WAREHOUSE_TEZOS_SECRET_KEY=edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq
-            - WAREHOUSE_TEZOS_PUBLIC_KEY_HASH=tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
-            - WAREHOUSE_CONTRACT_ADDRESS=${WAREHOUSE_CONTRACT_ADDRESS}
-            - NATS_URL=nats://nats:4222
+            - TEZOS_SECRET_KEY=edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq
+            - TEZOS_PUBLIC_KEY_HASH=tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
+            - LOGGING_FORMAT=full
+            - PGSQL_HOST=postgres
+            - PGSQL_USER=jwa
+            - PGSQL_PASSWORD=jwalab
+            - PGSQL_DATABASE=item
         restart: always
-        depends_on: 
+        depends_on:
+            - postgres
+            - nats
             - tzbox
-            - nats
-    item-store:
-        image: jwalab/item-store:0.0.8
+    tezos-work-queue:
+        image: jwalab/tezos-work-queue:0.0.1
+        entrypoint: [
+            "sh",  "-c",
+            "sleep 10 && npm run start"
+        ]
         environment:
             - NATS_URL=nats://nats:4222
-            - ELASTICSEARCH_URI=http://elasticsearch:9200
-            - ELASTICSEARCH_INDEX_NAME=jwa_item_store
+            - TEZOS_RPC_URI=http://tzbox:20000
+            - TEZOS_SECRET_KEY=edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq
+            - LOGGING_FORMAT=full
         restart: always
-        depends_on: 
-            - elasticsearch
+        depends_on:
+            - item-service
             - nats
-    elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
-        environment:
-            - discovery.type=single-node
-        ports:
-            - 9200:9200
-            - 9300:9300
-    kibana:
-        image: docker.elastic.co/kibana/kibana:7.9.2
-        ports:
-            - "5601:5601"
+            - tzbox
     swagger-ui:
         image: swaggerapi/swagger-ui
         ports:
