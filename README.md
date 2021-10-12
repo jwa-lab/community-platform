@@ -18,8 +18,7 @@ The community platform starts the core JWA Platform services:
 
 It then starts additional services:
 
-1. JWA Tokenization service
-1. JWA Item store
+1. JWA Item Service
 1. Or run your own services on top of it 
 
 
@@ -37,14 +36,6 @@ Start the platform:
 
 ```
 jwalab start
-```
-
-By default, the platform will automatically deploy a new Warehouse Smart Contract.
-
-To use an existing one, simply specify it as an environment variable:
-
-```
-export WAREHOUSE_CONTRACT_ADDRESS=<KT1 address>
 ```
 
 ## Tutorial

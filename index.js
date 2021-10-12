@@ -10,7 +10,7 @@ const package = require("./package.json");
 
 clear();
 
-const { BOX_NAME = "carthagebox" } = process.env;
+const { BOX_NAME = "granabox" } = process.env;
 
 const program = new Command();
 

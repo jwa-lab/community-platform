@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0
+
+- [BREAKING] Removing `item-store` and `tokenization-service` and replace with newer `item-service` 
+ and `tezos-work-queue` combination which provide a simpler, integrated API and an asynchronous work queue.
+ See documentation for more details: https://jwa-lab.github.io/platform-docs/
+
 ## 0.0.22
 
 - Upgrade authorization-service to 0.0.4
