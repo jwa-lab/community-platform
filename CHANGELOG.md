@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- Upgrade item-service to 0.0.2 which includes improved logic for recomposing item instances
+
 ## 0.1.0
 
 - [BREAKING] Removing `item-store` and `tokenization-service` and replace with newer `item-service` 

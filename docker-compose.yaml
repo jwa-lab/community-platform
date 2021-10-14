@@ -74,7 +74,7 @@ services:
         ports:
             - "5432:5432"
     item-service:
-        image: jwalab/item-service:0.0.1
+        image: jwalab/item-service:0.0.2
         entrypoint: [
             "sh", "-c", 
             "npm run seed-db && sleep 10 && export WAREHOUSE_CONTRACT_ADDRESS=$$(npm run deploy-warehouse --silent) && npm run start"
