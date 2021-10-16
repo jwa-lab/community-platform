@@ -1,9 +1,13 @@
 # Changelog
 
+## 0.1.4
+
+-   Rename list-ports to list-services and fix output when the platform is not running
+
 ## 0.1.3
 
-- Add option to remap ports used by the community platform
-- Add command to list which ports are being used by the platform
+-   Add option to remap ports used by the community platform
+-   Add command to list which ports are being used by the platform
 
 ## 0.1.1
 

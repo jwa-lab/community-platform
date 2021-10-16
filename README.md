@@ -81,20 +81,20 @@ export $(cat .env) && jwalab start
 There's a useful command to list all the ports being used by the platform, along with the environment variable to remap the port.
 
 ```sh
-$ jwalab list-ports
+$ jwalab list-services
 
-┌─────────┬─────────────────┬─────────────┬────────────────────────────┐
-│ (index) │  Service Name   │ Mapped Port │    ENV VAR for override    │
-├─────────┼─────────────────┼─────────────┼────────────────────────────┤
-│    0    │ 'Tezos Sandbox' │    20000    │    'JWALAB_TZBOX_PORT'     │
-│    1    │     'NATS'      │    4222     │     'JWALAB_NATS_PORT'     │
-│    2    │ 'Auth Service'  │    8999     │ 'JWALAB_AUTH_SERVICE_PORT' │
-│    3    │    'Airlock'    │    9000     │   'JWALAB_AIRLOCK_PORT'    │
-│    4    │    'TzIndex'    │    8002     │   'JWALAB_TZINDEX_PORT'    │
-│    5    │    'TzStats'    │    8001     │   'JWALAB_TZSTATS_PORT'    │
-│    6    │  'PostgreSQL'   │    5432     │   'JWALAB_POSTGRES_PORT'   │
-│    7    │  'Swagger UI'   │    3000     │   'JWALAB_SWAGGER_PORT'    │
-└─────────┴─────────────────┴─────────────┴────────────────────────────┘
+┌─────────┬─────────────────┬───────────────┬────────────────────────────┐
+│ (index) │  Service Name   │  Mapped Port  │    ENV VAR for override    │
+├─────────┼─────────────────┼───────────────┼────────────────────────────┤
+│    0    │    'Airlock'    │ 'Not running' │   'JWALAB_AIRLOCK_PORT'    │
+│    1    │ 'Auth Service'  │     8999      │ 'JWALAB_AUTH_SERVICE_PORT' │
+│    2    │     'NATS'      │     4222      │     'JWALAB_NATS_PORT'     │
+│    3    │  'PostgreSQL'   │     5432      │   'JWALAB_POSTGRES_PORT'   │
+│    4    │  'Swagger UI'   │     8080      │   'JWALAB_SWAGGER_PORT'    │
+│    5    │ 'Tezos Sandbox' │     20000     │    'JWALAB_TZBOX_PORT'     │
+│    6    │    'TzIndex'    │     8002      │   'JWALAB_TZINDEX_PORT'    │
+│    7    │    'TzStats'    │     8001      │   'JWALAB_TZSTATS_PORT'    │
+└─────────┴─────────────────┴───────────────┴────────────────────────────┘
 ```
 
 ## Commands
@@ -115,6 +115,6 @@ Commands:
   pull            download the latest versions of the platform's services
   tezos-client    run a command in the tezos-client
   granabox        run a command in granabox
-  list-ports      list all running services and the port they expose
+  list-services      list all running services and the port they expose
   help [command]  display help for command
 ```
