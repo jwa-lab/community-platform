@@ -1,6 +1,6 @@
 {
     "name": "@jwalab/community-platform",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "JWA Lab's community platform",
     "main": "index.js",
     "scripts": {
@@ -12,7 +12,8 @@
     },
     "files": [
         "index.js",
-        "docker-compose.yaml"
+        "docker-compose.yaml",
+        "servicesConfig.js"
     ],
     "repository": {
         "type": "git",

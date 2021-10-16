@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.2
+## 0.1.3
 
 - Add option to remap ports used by the community platform
 - Add command to list which ports are being used by the platform
