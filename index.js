@@ -144,26 +144,34 @@ program
     );
 
 program
-    .command("list-ports")
+    .command("list-services")
     .description("list all running services and the port they expose")
     .action(async () => {
-        try {
-            const ports = await Promise.all(
-                Object.entries(servicesConfig).map(async ([name, { port }]) => {
+        const servicePorts = [];
+
+        await Promise.allSettled(
+            Object.entries(servicesConfig).map(async ([name, { port }]) => {
+                const servicePort = {
+                    "Service Name": servicesConfig[name].name,
+                    "Mapped Port": "Not running",
+                    "ENV VAR for override": servicesConfig[name].overrideVar
+                };
+
+                try {
                     const { out } = await compose.port(name, port);
 
-                    return {
-                        "Service Name": servicesConfig[name].name,
-                        "Mapped Port": Number(out.split(":")[1]),
-                        "ENV VAR for override": servicesConfig[name].overrideVar
-                    };
-                })
-            );
+                    servicePort["Mapped Port"] = Number(out.split(":")[1]);
+                } catch (err) {}
 
-            console.table(ports);
-        } catch (err) {
-            console.error("something went wrong:", err);
-        }
+                servicePorts.push(servicePort);
+            })
+        );
+
+        console.table(
+            servicePorts.sort((serviceA, serviceB) =>
+                serviceA["Service Name"] > serviceB["Service Name"] ? 1 : -1
+            )
+        );
     });
 
 program.parse(process.argv);
