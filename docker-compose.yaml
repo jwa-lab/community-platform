@@ -5,35 +5,35 @@ services:
         image: tqtezos/flextesa:20210602
         command: ["granabox", "start"]
         ports:
-            - "20000:20000"
+            - "${JWALAB_TZBOX_PORT}:20000"
         environment:
-           - TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=yes
-           - block_time=2
+            - TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=yes
+            - block_time=2
     nats:
         image: nats:latest
         command: ["-js"]
         ports:
-            - "4222:4222"
-            - "6222:6222"
-            - "8222:8222"
+            - "${JWALAB_NATS_PORT}:4222"
+            - "6222"
+            - "8222"
     authorization-service:
         image: jwalab/authorization-service:0.0.4
         ports:
-            - "8999:8999"
+            - "${JWALAB_AUTH_SERVICE_PORT}:8999"
         environment:
             - TOKEN_ISSUER=authorization-service
         restart: always
     airlock:
         image: jwalab/airlock:0.0.8
         ports:
-            - "8000:8000"
+            - "${JWALAB_AIRLOCK_PORT}:8000"
         restart: always
         environment:
             - NATS_URL=nats://nats:4222
             - SECURE=false
             - AUTH_URL=authorization-service:8999
             - AUTH_PROTOCOL=http
-        depends_on: 
+        depends_on:
             - nats
             - authorization-service
     tzindex:
@@ -41,7 +41,7 @@ services:
         # https://github.com/blockwatch-cc/tzindex/issues/13
         command: ["sh", "-c", "sleep 10 && tzindex run"]
         ports:
-            - "8002:8002"
+            - "${JWALAB_TZINDEX_PORT}:8002"
         user: root
         environment:
             - TZ_RPC_HOST=tzbox
@@ -57,11 +57,11 @@ services:
     tzstats:
         image: blockwatch/tzstats
         ports:
-            - "8001:8001"
+            - "${JWALAB_TZSTATS_PORT}:8001"
         environment:
-            - TZSTATS_API_URL=http://localhost:8002
+            - TZSTATS_API_URL=http://localhost:${JWALAB_TZINDEX_PORT}
             - SV_HEADERS_Content-Security-Policy=default-src 'self' 'unsafe-inline' http://localhost:*;
-            - SV_SERVER_PORT=8001
+            - SV_SERVER_PORT=${JWALAB_TZSTATS_PORT}
         restart: always
         depends_on:
             - tzindex
@@ -72,13 +72,15 @@ services:
             - POSTGRES_PASSWORD=jwalab
             - POSTGRES_DB=item
         ports:
-            - "5432:5432"
+            - "${JWALAB_POSTGRES_PORT}:5432"
     item-service:
         image: jwalab/item-service:0.0.2
-        entrypoint: [
-            "sh", "-c", 
-            "npm run seed-db && sleep 10 && export WAREHOUSE_CONTRACT_ADDRESS=$$(npm run deploy-warehouse --silent) && npm run start"
-        ]
+        entrypoint:
+            [
+                "sh",
+                "-c",
+                "npm run seed-db && sleep 10 && export WAREHOUSE_CONTRACT_ADDRESS=$$(npm run deploy-warehouse --silent) && npm run start"
+            ]
         environment:
             - SERVICE_NAME=item-service
             - NATS_URL=nats://nats:4222
@@ -97,10 +99,7 @@ services:
             - tzbox
     tezos-work-queue:
         image: jwalab/tezos-work-queue:0.0.1
-        entrypoint: [
-            "sh",  "-c",
-            "sleep 10 && npm run start"
-        ]
+        entrypoint: ["sh", "-c", "sleep 10 && npm run start"]
         environment:
             - NATS_URL=nats://nats:4222
             - TEZOS_RPC_URI=http://tzbox:20000
@@ -114,6 +113,6 @@ services:
     swagger-ui:
         image: swaggerapi/swagger-ui
         ports:
-            - "80:8080"
+            - "${JWALAB_SWAGGER_PORT}:8080"
         environment:
-            API_URL: http://localhost:8000/docs
+            API_URL: http://localhost:${JWALAB_AIRLOCK_PORT}/docs
