@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.6
+
+-   Fix issue with `list-services`
+
 ## 0.1.5
 
 -   Add a `logs` command to view all logs across all services

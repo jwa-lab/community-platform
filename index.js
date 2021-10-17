@@ -159,7 +159,9 @@ program
                 };
 
                 try {
-                    const { out } = await compose.port(name, port);
+                    const { out } = await compose.port(name, port, {
+                        cwd: path.join(__dirname)
+                    });
 
                     servicePort["Mapped Port"] = Number(out.split(":")[1]);
                 } catch (err) {}
