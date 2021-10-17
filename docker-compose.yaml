@@ -87,7 +87,7 @@ services:
             - TEZOS_RPC_URI=http://tzbox:20000
             - TEZOS_SECRET_KEY=edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq
             - TEZOS_PUBLIC_KEY_HASH=tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
-            - LOGGING_FORMAT=full
+            - LOGGING_FORMAT=cli
             - PGSQL_HOST=postgres
             - PGSQL_USER=jwa
             - PGSQL_PASSWORD=jwalab
@@ -104,7 +104,7 @@ services:
             - NATS_URL=nats://nats:4222
             - TEZOS_RPC_URI=http://tzbox:20000
             - TEZOS_SECRET_KEY=edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq
-            - LOGGING_FORMAT=full
+            - LOGGING_FORMAT=cli
         restart: always
         depends_on:
             - item-service

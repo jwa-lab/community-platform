@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.5
+
+-   Add a `logs` command to view all logs across all services
+
 ## 0.1.4
 
 -   Rename list-ports to list-services and fix output when the platform is not running

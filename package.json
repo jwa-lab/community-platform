@@ -1,6 +1,6 @@
 {
     "name": "@jwalab/community-platform",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "JWA Lab's community platform",
     "main": "index.js",
     "scripts": {

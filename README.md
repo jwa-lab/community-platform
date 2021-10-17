@@ -115,6 +115,7 @@ Commands:
   pull            download the latest versions of the platform's services
   tezos-client    run a command in the tezos-client
   granabox        run a command in granabox
-  list-services      list all running services and the port they expose
+  list-services   list all running services and the port they expose
+  logs            view platform logs
   help [command]  display help for command
 ```
