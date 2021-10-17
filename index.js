@@ -5,6 +5,7 @@ const clear = require("clear");
 const compose = require("docker-compose");
 const path = require("path");
 const chalk = require("chalk");
+const { spawn } = require("child_process");
 
 const servicesConfig = require("./servicesConfig.js");
 const package = require("./package.json");
@@ -172,6 +173,19 @@ program
                 serviceA["Service Name"] > serviceB["Service Name"] ? 1 : -1
             )
         );
+    });
+
+program
+    .command("logs")
+    .description("view platform logs")
+    .action(async () => {
+        const log = spawn("docker", ["compose", "logs", "-f"], {
+            cwd: path.join(__dirname),
+            maxBuffer: 1_000_000
+        });
+
+        log.stdout.on("data", (data) => console.log(String(data)));
+        log.stdout.on("error", (err) => console.error("error: ", err));
     });
 
 program.parse(process.argv);
