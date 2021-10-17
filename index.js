@@ -101,18 +101,7 @@ program
 program
     .command("tezos-client")
     .description("run a command in the tezos-client")
-    .action(() => {
-        tezosClient(BOX_NAME, program.args.slice(1).join(" ")).then(
-            (res) => {
-                console.log(res.out);
-            },
-            (res) => {
-                console.log(
-                    `\nThis is not an error with jwalab but most likely with the tezos-client. ${res.out}`
-                );
-            }
-        );
-    })
+    .action(() => tezosClient(program.args.slice(1).join(" ")))
     .addHelpText(
         "after",
         `
@@ -125,16 +114,7 @@ program
 program
     .command(BOX_NAME)
     .description(`run a command in ${BOX_NAME}`)
-    .action(() => {
-        runBox(BOX_NAME, program.args.slice(1).join(" ")).then(
-            () => {},
-            () => {
-                console.log(
-                    `\nThis is not an error with jwalab but most likely with ${BOX_NAME}`
-                );
-            }
-        );
-    })
+    .action(() => runBox(BOX_NAME, program.args.slice(1).join(" ")))
     .addHelpText(
         "after",
         `
@@ -192,25 +172,21 @@ program
 
 program.parse(process.argv);
 
-async function tezosClient(boxName, command) {
-    let res = await compose.exec(
-        boxName,
+function tezosClient(command) {
+    return compose.exec(
+        "tzbox",
         `tezos-client -E http://localhost:${JWALAB_TZBOX_PORT} ${command}`,
         {
-            cwd: path.join(__dirname)
+            cwd: path.join(__dirname),
+            log: true
         }
     );
-
-    if (res.err) {
-        throw new Error(`Unable to execute tezos-client ${res.err}`);
-    }
-
-    return res.out;
 }
 
 function runBox(boxName, command) {
-    return compose.exec(boxName, `${boxName} ${command}`, {
-        cwd: path.join(__dirname)
+    return compose.exec("tzbox", `${boxName} ${command}`, {
+        cwd: path.join(__dirname),
+        log: true
     });
 }
 

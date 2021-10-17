@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.7
+
+-   Fix `tezos-client` and `granabox` commands
+
 ## 0.1.6
 
 -   Fix issue with `list-services`
