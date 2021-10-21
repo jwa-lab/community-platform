@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.8
+
+-   Update to `item-service:0.0.4`, automates `available_quantity`.
+
 ## 0.1.7
 
 -   Fix `tezos-client` and `granabox` commands
