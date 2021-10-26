@@ -17,7 +17,7 @@ services:
             - "6222"
             - "8222"
     authorization-service:
-        image: jwalab/authorization-service:0.0.4
+        image: jwalab/authorization-service:0.0.5
         ports:
             - "${JWALAB_AUTH_SERVICE_PORT}:8999"
         environment:
@@ -98,7 +98,7 @@ services:
             - nats
             - tzbox
     tezos-work-queue:
-        image: jwalab/tezos-work-queue:0.0.1
+        image: jwalab/tezos-work-queue:0.0.2
         entrypoint: ["sh", "-c", "sleep 10 && npm run start"]
         environment:
             - NATS_URL=nats://nats:4222
