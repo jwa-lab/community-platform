@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.9
+
+- Update to `item-service:0.0.5` which adds the freeze item endpoint.
+- Update to `tezos-work-queue:0.0.2`
+
 ## 0.1.8
 
 -   Update to `item-service:0.0.4`, automates `available_quantity`.
