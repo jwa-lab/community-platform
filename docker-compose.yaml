@@ -74,7 +74,7 @@ services:
         ports:
             - "${JWALAB_POSTGRES_PORT}:5432"
     item-service:
-        image: jwalab/item-service:0.0.6
+        image: jwalab/item-service:0.0.7
         entrypoint:
             [
                 "sh",
