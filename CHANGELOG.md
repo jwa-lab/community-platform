@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.10
+
+- Upgrade item-service and airlock to most recent path versions
+
 ## 0.1.9
 
 - Update to `item-service:0.0.5` which adds the freeze item endpoint.

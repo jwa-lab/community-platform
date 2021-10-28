@@ -17,14 +17,14 @@ services:
             - "6222"
             - "8222"
     authorization-service:
-        image: jwalab/authorization-service:0.0.5
+        image: jwalab/authorization-service:0.0.4
         ports:
             - "${JWALAB_AUTH_SERVICE_PORT}:8999"
         environment:
             - TOKEN_ISSUER=authorization-service
         restart: always
     airlock:
-        image: jwalab/airlock:0.0.8
+        image: jwalab/airlock:0.1.0
         ports:
             - "${JWALAB_AIRLOCK_PORT}:8000"
         restart: always
@@ -74,7 +74,7 @@ services:
         ports:
             - "${JWALAB_POSTGRES_PORT}:5432"
     item-service:
-        image: jwalab/item-service:0.0.4
+        image: jwalab/item-service:0.0.6
         entrypoint:
             [
                 "sh",
