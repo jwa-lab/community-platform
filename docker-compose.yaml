@@ -17,7 +17,7 @@ services:
             - "6222"
             - "8222"
     authorization-service:
-        image: jwalab/authorization-service:0.0.4
+        image: jwalab/authorization-service:0.0.5
         ports:
             - "${JWALAB_AUTH_SERVICE_PORT}:8999"
         environment:

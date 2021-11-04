@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.11
+
+- Update to `authorization-service:0.0.5` which allow studio_id and user_id update for development tokens.
+
 ## 0.1.10
 
 - Upgrade item-service and airlock to most recent path versions
