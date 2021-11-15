@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.12
+
+Update to `airlock:0.1.2` with a new error management.
+
 ## 0.1.11
 
 - Update to `authorization-service:0.0.5` which allow studio_id and user_id update for development tokens.
