@@ -1,17 +1,22 @@
 # Changelog
 
+## 0.1.12
+
+-   Update to `item-service:0.0.11` and `tezos-gateway:0.0.4` which replaces `tezos-work-queue`.
+    The upgrade brings significant performance improvement during tokenization by batching operations together.
+
 ## 0.1.11
 
-- Update to `authorization-service:0.0.5` which allow studio_id and user_id update for development tokens.
+-   Update to `authorization-service:0.0.5` which allow studio_id and user_id update for development tokens.
 
 ## 0.1.10
 
-- Upgrade item-service and airlock to most recent path versions
+-   Upgrade item-service and airlock to most recent path versions
 
 ## 0.1.9
 
-- Update to `item-service:0.0.5` which adds the freeze item endpoint.
-- Update to `tezos-work-queue:0.0.2`
+-   Update to `item-service:0.0.5` which adds the freeze item endpoint.
+-   Update to `tezos-work-queue:0.0.2`
 
 ## 0.1.8
 
