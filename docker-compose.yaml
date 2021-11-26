@@ -73,13 +73,22 @@ services:
             - POSTGRES_DB=item
         ports:
             - "${JWALAB_POSTGRES_PORT}:5432"
+    init-db:
+        image: jwalab/item-service-init-db
+        environment:
+            - PGSQL_HOST=postgres
+            - PGSQL_USER=jwa
+            - PGSQL_PASSWORD=jwalab
+            - PGSQL_DATABASE=item
+        depends_on:
+          - postgres
     item-service:
-        image: jwalab/item-service:0.0.7
+        image: jwalab/item-service:0.0.11
         entrypoint:
             [
                 "sh",
                 "-c",
-                "npm run seed-db && sleep 10 && export WAREHOUSE_CONTRACT_ADDRESS=$$(npm run deploy-warehouse --silent) && npm run start"
+                "sleep 10 && export WAREHOUSE_CONTRACT_ADDRESS=$$(npm run deploy-warehouse --silent) && npm run start"
             ]
         environment:
             - SERVICE_NAME=item-service
@@ -95,11 +104,12 @@ services:
         restart: always
         depends_on:
             - postgres
+            - init-db
             - nats
             - tzbox
-    tezos-work-queue:
-        image: jwalab/tezos-work-queue:0.0.2
-        entrypoint: ["sh", "-c", "sleep 10 && npm run start"]
+    tezos-gateway:
+        image: jwalab/tezos-gateway:0.0.4
+        entrypoint: ["sh", "-c", "sleep 15 && npm run start"]
         environment:
             - NATS_URL=nats://nats:4222
             - TEZOS_RPC_URI=http://tzbox:20000
